@@ -67,14 +67,13 @@ class Route
                 $response = $bot->getMessageContent($event->getMessageId());
 
                 if ($response->isSucceeded()) {
-                    $replyText = nekojudge($response->getRawBody());
-                    // $tempfile = tmpfile();
-                    // fwrite($tempfile, $response->getRawBody());
+                    $tempfile = tmpfile();
+                    fwrite($tempfile, $response->getRawBody());
                 } else {
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
 
-                
+                $replyText = nekojudge($tempfile);
 
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
@@ -151,7 +150,7 @@ class Route
             // $res = json_decode($data);
             // curl_close($curl);
             // error_log(print_r($data,true));
-            $req_body = array('image' => $send_image);
+            $req_body = array('image' => '@./'.$send_image);
             $headers = array(
                 'Content-Type: application/json; charset=UTF-8',
             );
