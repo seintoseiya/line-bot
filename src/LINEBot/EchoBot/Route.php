@@ -75,11 +75,11 @@ class Route
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
 
-                nekojudge($tempfile);
+                $replyText = nekojudge($tempfile);
 
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
-                // $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
+                $resp = $bot->replyText($event->getReplyToken(), $replyText);
                 // $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
@@ -144,12 +144,11 @@ class Route
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
-            $data = curl_exec($ch);
-            curl_close($ch);
+            $data = curl_exec($curl);
+            curl_close($curl);
 
             $res = json_decode($data);
-            error_log($res);
-            // return $res[0];
+            return $res[0][0];
         }
     }
 }
