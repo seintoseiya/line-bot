@@ -64,7 +64,6 @@ class Route
                 //     $logger->info('Non text message has come');
                 //     continue;
                 // }
-                error_log(print_r($event->getMessageId(),true));
                 $response = $bot->getMessageContent($event->getMessageId());
 
                 if ($response->isSucceeded()) {
@@ -138,7 +137,10 @@ class Route
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $params['image'] = $send_image;
+            ob_start();
+            imagepng($send_image, null, 9); // png画像をminify
+            $image_binary = ob_get_clean();
+            $params['image'] = $image_binary;
 
             $curl = curl_init($api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
