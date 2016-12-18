@@ -56,30 +56,41 @@ class Route
             }
 
             foreach ($events as $event) {
-                if ($event instanceof ImageMessage) {
-                    error_log("-----------------------image-------------------");
-                }else{
-                    if (!($event instanceof MessageEvent)) {
-                        $logger->info('Non message event has come');
-                        continue;
-                    }
+                error_log($event);
+                // if (!($event instanceof MessageEvent)) {
+                //     $logger->info('Non message event has come');
+                //     continue;
+                // }
 
-                    if (!($event instanceof TextMessage)) {
-                        $logger->info('Non text message has come');
-                        continue;
-                    }
+                // if (!($event instanceof TextMessage)) {
+                //     $logger->info('Non text message has come');
+                //     continue;
+                // }
 
-                    $replyText = $event->getText();
-                    $logger->info('Reply text: ' . $replyText);
-                    $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
-                    $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                $response = $bot->getMessageContent($event->{"message"}->{"id"});
+                if ($response->isSucceeded()) {
+                    $tempfile = tmpfile();
+                    fwrite($tempfile, $response->getRawBody());
+                } else {
+                    error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
+
+                nekojudge($tempfile)
+
+                // $replyText = $event->getText();
+                // $logger->info('Reply text: ' . $replyText);
+                $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
+                $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
             $res->write('OK');
             return $res;
         });
-        // parameter: text
+        /**
+         * Returns text of the message.
+         * parameter: string
+         * @return string
+         */
         function chat($send_message) {
             // docomo chatAPI
             $context_file = dirname(__FILE__).'/.docomoapi.context';
@@ -108,11 +119,19 @@ class Route
 
             return $res->utt;
         }
-        // parameter: text
+        /**
+         * Returns text of the message.
+         * parameter: string
+         * @return string
+         */
         function nekogo($chat_message) {
             // 「。」を「にゃ。」に置換
         }
-        // parameter: image
+        /**
+         * Returns text of the message.
+         * parameter: binary
+         * @return string
+         */
         function nekojudge($send_image) {
             // ネコ
             
