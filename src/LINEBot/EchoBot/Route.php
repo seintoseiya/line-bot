@@ -56,7 +56,7 @@ class Route
             }
 
             foreach ($events as $event) {
-                error_log($event);
+                error_log("-----------------------aaa-------------------");
                 if ($event instanceof ImageMessage) {
                     error_log("-----------------------image-------------------");
                 }else{
@@ -120,7 +120,6 @@ class Route
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $data = array('name' => 'Foo', 'file' => '@/path/to/image.jpeg');
             $params['image'] = $send_image;
 
             $curl = curl_init($api_url);
