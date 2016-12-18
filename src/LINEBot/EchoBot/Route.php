@@ -145,10 +145,11 @@ class Route
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
             $data = curl_exec($curl);
+            $res = json_decode($data);
             curl_close($curl);
 
-            $res = json_decode($data);
-            error_log($res[0]);
+            error_log($res);
+            error_log($res[0][0]);
             return "aaa";
         }
     }
