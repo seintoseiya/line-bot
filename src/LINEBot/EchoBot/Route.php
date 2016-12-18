@@ -56,7 +56,7 @@ class Route
             }
 
             foreach ($events as $event) {
-                error_log("event:".$event);
+                error_log('event:' .$event);
                 // if (!($event instanceof MessageEvent)) {
                 //     $logger->info('Non message event has come');
                 //     continue;
@@ -66,7 +66,7 @@ class Route
                 //     $logger->info('Non text message has come');
                 //     continue;
                 // }
-
+                error_log('message id:'.$event->{"message"}->{"id"});
                 $response = $bot->getMessageContent($event->{"message"}->{"id"});
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
