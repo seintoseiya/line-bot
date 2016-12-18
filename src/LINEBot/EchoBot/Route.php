@@ -148,7 +148,7 @@ class Route
             curl_close($curl);
 
             $res = json_decode($data);
-            error_log($res[0][0]);
+            error_log($res[0]);
             return "aaa";
         }
     }
