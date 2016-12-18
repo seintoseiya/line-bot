@@ -64,7 +64,9 @@ class Route
                 //     $logger->info('Non text message has come');
                 //     continue;
                 // }
+                error_log(print_r($event->getMessageId(),true));
                 $response = $bot->getMessageContent($event->getMessageId());
+
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
                     fwrite($tempfile, $response->getRawBody());
@@ -130,6 +132,7 @@ class Route
          * @return string
          */
         function nekojudge($send_image) {
+            error_log(print_r($send_image,true));
             // ネコ
             
             // $user = 'seintoseiya';
@@ -147,7 +150,7 @@ class Route
             $data = curl_exec($curl);
             $res = json_decode($data);
             curl_close($curl);
-            error_log(print_r($res,true));
+            error_log(print_r($data,true));
             return $res;
         }
     }
