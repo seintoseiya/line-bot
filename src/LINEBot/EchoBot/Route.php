@@ -75,7 +75,7 @@ class Route
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
 
-                nekojudge($tempfile)
+                nekojudge($tempfile);
 
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
