@@ -56,25 +56,30 @@ class Route
             }
 
             foreach ($events as $event) {
-                if (!($event instanceof MessageEvent)) {
-                    $logger->info('Non message event has come');
-                    continue;
-                }
+                if ($event instanceof ImageMessage) {
+                    error_log("-----------------------image-------------------");
+                }else{
+                    if (!($event instanceof MessageEvent)) {
+                        $logger->info('Non message event has come');
+                        continue;
+                    }
 
-                if (!($event instanceof TextMessage)) {
-                    $logger->info('Non text message has come');
-                    continue;
-                }
+                    if (!($event instanceof TextMessage)) {
+                        $logger->info('Non text message has come');
+                        continue;
+                    }
 
-                $replyText = $event->getText();
-                $logger->info('Reply text: ' . $replyText);
-                $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
-                $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                    $replyText = $event->getText();
+                    $logger->info('Reply text: ' . $replyText);
+                    $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
+                    $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                }
             }
 
             $res->write('OK');
             return $res;
         });
+        // parameter: text
         function chat($send_message) {
             // docomo chatAPI
             $context_file = dirname(__FILE__).'/.docomoapi.context';
@@ -102,6 +107,31 @@ class Route
             }
 
             return $res->utt;
+        }
+        // parameter: text
+        function nekogo($chat_message) {
+            // 「。」を「にゃ。」に置換
+        }
+        // parameter: image
+        function nekojudge($send_image) {
+            // ネコ
+            
+            // $user = 'seintoseiya';
+            // $pass = 'pegasasu';
+            $api_url = 'http://whatcat.ap.mextractr.net/api_query';
+            $data = array('name' => 'Foo', 'file' => '@/path/to/image.jpeg');
+            $params['image'] = $send_image;
+
+            $curl = curl_init($api_url);
+            curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            $data = curl_exec($ch);
+            curl_close($ch);
+
+            $res = json_decode($data);
+            error_log($res);
+            // return $res[0];
         }
     }
 }
