@@ -56,7 +56,7 @@ class Route
             }
 
             foreach ($events as $event) {
-                error_log($event);
+                error_log("event:".$event);
                 // if (!($event instanceof MessageEvent)) {
                 //     $logger->info('Non message event has come');
                 //     continue;
