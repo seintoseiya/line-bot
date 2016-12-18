@@ -79,8 +79,8 @@ class Route
 
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
-                $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
-                $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                // $resp = $bot->replyText($event->getReplyToken(), chat($replyText));
+                // $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
             $res->write('OK');
