@@ -67,7 +67,7 @@ class Route
                 $response = $bot->getMessageContent($event->getMessageId());
 
                 if ($response->isSucceeded()) {
-                    $replyText = nekojudge(tmpfile());
+                    $replyText = nekojudge($response->getRawBody());
                     // $tempfile = tmpfile();
                     // fwrite($tempfile, $response->getRawBody());
                 } else {
