@@ -54,7 +54,7 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
-
+            error_log($events);
             foreach ($events as $event) {
                 error_log('aaaaaaaaaaaaaaa');
                 // if (!($event instanceof MessageEvent)) {
