@@ -55,7 +55,6 @@ class Route
                 return $res->withStatus(400, "Invalid event request");
             }
             foreach ($events as $event) {
-                error_log('aaaaaaaaaaaaaaa');
                 // if (!($event instanceof MessageEvent)) {
                 //     $logger->info('Non message event has come');
                 //     continue;
@@ -65,9 +64,7 @@ class Route
                 //     $logger->info('Non text message has come');
                 //     continue;
                 // }
-                error_log('eeeeeeeeeeeeeee');
                 $response = $bot->getMessageContent($event->getMessageId());
-                error_log('ppppppppppppp');
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
                     fwrite($tempfile, $response->getRawBody());
@@ -150,8 +147,8 @@ class Route
             $data = curl_exec($curl);
             $res = json_decode($data);
             curl_close($curl);
-            error_log($res);
-            return $res;
+            error_log($res[0]);
+            return $res[0][0];
         }
     }
 }
