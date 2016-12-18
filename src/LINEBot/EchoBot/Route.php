@@ -150,8 +150,8 @@ class Route
             $data = curl_exec($curl);
             $res = json_decode($data);
             curl_close($curl);
-            error_log($res->[0]->[0]);
-            return $res->[0]->[0];
+            error_log($res);
+            return $res;
         }
     }
 }
