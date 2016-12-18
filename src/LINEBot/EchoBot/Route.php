@@ -67,13 +67,14 @@ class Route
                 $response = $bot->getMessageContent($event->getMessageId());
 
                 if ($response->isSucceeded()) {
-                    $tempfile = tmpfile();
-                    fwrite($tempfile, $response->getRawBody());
+                    $replyText = nekojudge(tmpfile());
+                    // $tempfile = tmpfile();
+                    // fwrite($tempfile, $response->getRawBody());
                 } else {
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
 
-                $replyText = nekojudge($tempfile);
+                
 
                 // $replyText = $event->getText();
                 // $logger->info('Reply text: ' . $replyText);
@@ -137,10 +138,7 @@ class Route
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            ob_start();
-            imagepng($send_image, null, 9); // png画像をminify
-            $image_binary = ob_get_clean();
-            $params['image'] = $image_binary;
+            $params['image'] = $send_image;
 
             $curl = curl_init($api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
@@ -153,7 +151,6 @@ class Route
             $res = json_decode($data);
             curl_close($curl);
             error_log(print_r($data,true));
-            
             return $res;
         }
     }
