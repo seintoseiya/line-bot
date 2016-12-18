@@ -150,7 +150,7 @@ class Route
             // $res = json_decode($data);
             // curl_close($curl);
             // error_log(print_r($data,true));
-            $req_body = array('image' => fopen($send_image);
+            $req_body = array('image' => fopen($send_image));
             $headers = array(
                 'Content-Type: application/json; charset=UTF-8',
             );
