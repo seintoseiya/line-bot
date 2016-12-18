@@ -75,34 +75,33 @@ class Route
             $res->write('OK');
             return $res;
         });
-    }
+        function chat($send_message) {
+            // docomo chatAPI
+            $context_file = dirname(__FILE__).'/.docomoapi.context';
+            $api_key = '32556d78757870766d767466766d2f6c47507552744b42745342386a4242524f356f2f71554a6a35655637';
+            $api_url = sprintf('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s', $api_key);
+            $req_body = array('utt' => $send_message);
+            if ( file_exists($context_file) ) {
+                $req_body['context'] = file_get_contents($context_file);
+            }
 
-    public function chat($send_message) {
-        // docomo chatAPI
-        $context_file = dirname(__FILE__).'/.docomoapi.context';
-        $api_key = '32556d78757870766d767466766d2f6c47507552744b42745342386a4242524f356f2f71554a6a35655637';
-        $api_url = sprintf('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s', $api_key);
-        $req_body = array('utt' => $send_message);
-        if ( file_exists($context_file) ) {
-            $req_body['context'] = file_get_contents($context_file);
-        }
-
-        $headers = array(
-            'Content-Type: application/json; charset=UTF-8',
-        );
-        $options = array(
-            'http'=>array(
-                'method'  => 'POST',
-                'header'  => implode("\r\n", $headers),
-                'content' => json_encode($req_body),
-                )
+            $headers = array(
+                'Content-Type: application/json; charset=UTF-8',
             );
-        $stream = stream_context_create($options);
-        $res = json_decode(file_get_contents($api_url, false, $stream));
-        if (isset($res->context)) {
-            file_put_contents($context_file, $res->context);
-        }
+            $options = array(
+                'http'=>array(
+                    'method'  => 'POST',
+                    'header'  => implode("\r\n", $headers),
+                    'content' => json_encode($req_body),
+                    )
+                );
+            $stream = stream_context_create($options);
+            $res = json_decode(file_get_contents($api_url, false, $stream));
+            if (isset($res->context)) {
+                file_put_contents($context_file, $res->context);
+            }
 
-        return $res->utt;
+            return $res->utt;
+        }
     }
 }
