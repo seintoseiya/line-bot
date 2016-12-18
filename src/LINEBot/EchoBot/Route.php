@@ -153,6 +153,7 @@ class Route
             $res = json_decode($data);
             curl_close($curl);
             error_log(print_r($data,true));
+            
             return $res;
         }
     }
