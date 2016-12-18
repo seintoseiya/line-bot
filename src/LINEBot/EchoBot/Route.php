@@ -54,7 +54,6 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
-            error_log($events);
             foreach ($events as $event) {
                 error_log('aaaaaaaaaaaaaaa');
                 // if (!($event instanceof MessageEvent)) {
@@ -67,7 +66,8 @@ class Route
                 //     continue;
                 // }
                 error_log('eeeeeeeeeeeeeee');
-                $response = $bot->getMessageContent($event->{"message"}->{"id"});
+                $response = $bot->getMessageContent($event->getMessageId());
+                error_log('ppppppppppppp');
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
                     fwrite($tempfile, $response->getRawBody());
