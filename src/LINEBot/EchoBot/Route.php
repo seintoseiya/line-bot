@@ -144,7 +144,9 @@ class Route
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            error_log($params);
             $data = curl_exec($curl);
+            error_log($data);
             $res = json_decode($data);
             curl_close($curl);
 
