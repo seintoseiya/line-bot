@@ -137,7 +137,7 @@ class Route
             
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
-            // $api_url = 'http://whatcat.ap.mextractr.net/api_query';
+            $api_url = 'http://whatcat.ap.mextractr.net/api_query';
             // $params['image'] = "@./cat_example.jpg";
 
             // $curl = curl_init($api_url);
