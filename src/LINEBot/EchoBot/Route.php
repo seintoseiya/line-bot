@@ -138,7 +138,7 @@ class Route
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $params['image'] = file_get_contents($send_image);
+            $params['image'] = "@./cat_example.jpg";
 
             $curl = curl_init($api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
@@ -146,7 +146,7 @@ class Route
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params['image'] );
             $data = curl_exec($curl);
             $res = json_decode($data);
             curl_close($curl);
