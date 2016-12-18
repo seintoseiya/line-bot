@@ -56,7 +56,6 @@ class Route
             }
 
             foreach ($events as $event) {
-                error_log("-----------------------aaa-------------------");
                 if ($event instanceof ImageMessage) {
                     error_log("-----------------------image-------------------");
                 }else{
