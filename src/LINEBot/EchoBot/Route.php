@@ -175,7 +175,7 @@ class Route
 
             $url = "http://whatcat.ap.mextractr.net/api_query";
             $header = array( 
-                "Content-Type: application/octet-stream",
+                "Content-Type: multipart/form-data",
                 'Authorization : Basic '.base64_encode('seintoseiya:pegasasu'),//ベーシック認証
             );
 
