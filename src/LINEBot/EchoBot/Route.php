@@ -142,9 +142,9 @@ class Route
 
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $cfile = curl_file_create('@./cat_example.jpg','image/jpeg','test_name');
-            $params['image'] = $cfile;
-            // $params = array('image' => '@./cat_example');
+            // $cfile = curl_file_create('@./cat_example.jpg','image/jpeg','test_name');
+            // $params['image'] = $cfile;
+            $params = array('image' => '@./cat_example');
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
@@ -153,6 +153,7 @@ class Route
             // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            error_log(print_r($params,true));
             // $data = curl_exec($curl);
             // $res = json_decode($data);
             // curl_close($curl);
@@ -168,9 +169,11 @@ class Route
             // $stream = stream_context_create($options);
             // $res = json_decode(file_get_contents($api_url, false, $stream));
             // error_log(print_r($res,true));
-            error_log(print_r("aaa".$curl,true));
+            
             $res = curl_exec($curl);
-            error_log(print_r($res,true));
+            error_log("1:".print_r($res,true));
+            error_log("2:".print_r($res[0],true));
+            error_log("3:".print_r($res[0][0],true));
             return $res[0][0];
         }
     }
