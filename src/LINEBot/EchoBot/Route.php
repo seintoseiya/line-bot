@@ -154,7 +154,7 @@ class Route
                 'http'=>array(
                     'method'  => 'POST',
                     'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
-                    'content' => http_bulid_query($req_body)
+                    'content' => http_build_query($req_body)
                     )
                 );
             $stream = stream_context_create($options);
