@@ -136,43 +136,54 @@ class Route
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
             
-
-            // $cfile = curl_file_create('@./cat_example.jpg','image/jpeg','test_name');
             // $params['image'] = $cfile;
 
-            $curl = curl_init();
-            $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
-            $params['image'] = $cfile;
-            // $params = array('image' => '@./cat_example.jpg');
+            // $curl = curl_init();
+            // $api_url = 'http://whatcat.ap.mextractr.net/api_query';
+            // $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
+            // $params['image'] = $cfile;
+            // // $params = array('image' => '@./cat_example.jpg');
 
-            curl_setopt($curl, CURLOPT_URL, $api_url);
-            curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
-            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            curl_setopt($curl, CURLOPT_POST, true);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
-            error_log(print_r($params,true));
+            // curl_setopt($curl, CURLOPT_URL, $api_url);
+            // curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
+            // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            // curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
+            // // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            // // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
+            // curl_setopt($curl, CURLOPT_POST, true);
+            // curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            // error_log(print_r($params,true));
+            // // $data = curl_exec($curl);
+            // // $res = json_decode($data);
+            // // curl_close($curl);
+            // // error_log(print_r($data,true));
+            // // $req_body = array('image' => $send_image);
+            // // $options = array(
+            // //     'http'=>array(
+            // //         'method'  => 'POST',
+            // //         'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
+            // //         'content' => $req_body
+            // //         )
+            // //     );
+            // // $stream = stream_context_create($options);
+            // // $res = json_decode(file_get_contents($api_url, false, $stream));
+            // // error_log(print_r($res,true));
             // $data = curl_exec($curl);
+            // error_log("0:".print_r($data,true));
             // $res = json_decode($data);
-            // curl_close($curl);
-            // error_log(print_r($data,true));
-            // $req_body = array('image' => $send_image);
-            // $options = array(
-            //     'http'=>array(
-            //         'method'  => 'POST',
-            //         'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
-            //         'content' => $req_body
-            //         )
-            //     );
-            // $stream = stream_context_create($options);
-            // $res = json_decode(file_get_contents($api_url, false, $stream));
-            // error_log(print_r($res,true));
-            $data = curl_exec($curl);
-            error_log("0:".print_r($data,true));
-            $res = json_decode($data);
+
+
+            $url = "http://seintoseiya:pegasasu@whatcat.ap.mextractr.net/api_query";
+            $header = "Content-Type: multipart/form-data";
+            $opts = array(
+                'http' => array(
+                'method' => 'POST',
+                'header' => $header,
+                'content' => "image=$send_image",
+            ));
+
+            file_get_contents($url, false, stream_context_create($opts));
+
             error_log("1:".print_r($res,true));
             error_log("2:".print_r($res[0],true));
             error_log("3:".print_r($res[0][0],true));
