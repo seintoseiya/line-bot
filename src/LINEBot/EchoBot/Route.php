@@ -170,8 +170,9 @@ class Route
             // $stream = stream_context_create($options);
             // $res = json_decode(file_get_contents($api_url, false, $stream));
             // error_log(print_r($res,true));
-            
-            $res = curl_exec($curl);
+            $data = curl_exec($curl);
+            error_log("0:".print_r($data,true));
+            $res = json_decode($data);
             error_log("1:".print_r($res,true));
             error_log("2:".print_r($res[0],true));
             error_log("3:".print_r($res[0][0],true));
