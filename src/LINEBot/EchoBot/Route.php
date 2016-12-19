@@ -173,15 +173,17 @@ class Route
             // $res = json_decode($data);
 
 
-            $url = "http://seintoseiya:pegasasu@whatcat.ap.mextractr.net/api_query";
-            $header = "Content-Type: multipart/form-data";
+            $url = "http://whatcat.ap.mextractr.net/api_query";
+            $header = array( 
+                "Content-Type: multipart/form-data",
+                'Authorization : Basic '.base64_encode('seintoseiya:paegasasu'),//ベーシック認証
+            ) 
+
             $opts = array(
                 'http' => array(
                 'method' => 'POST',
                 'header' => $header,
                 'content' => "image=$send_image",
-                // 'User-Agent' => 'My User Agent 1.0',    //ユーザエージェントの指定
-                // 'Authorization' => 'Basic '.base64_encode('seintoseiya:paegasasu'),//ベーシック認証
             ));
 
             $res = file_get_contents($url, false, stream_context_create($opts));
