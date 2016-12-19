@@ -177,7 +177,7 @@ class Route
             $header = array( 
                 "Content-Type: multipart/form-data",
                 'Authorization : Basic '.base64_encode('seintoseiya:paegasasu'),//ベーシック認証
-            ) 
+            );
 
             $opts = array(
                 'http' => array(
