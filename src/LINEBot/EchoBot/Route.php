@@ -137,12 +137,15 @@ class Route
             // $pass = 'pegasasu';
             
             // $params['image'] = $cfile;
+            $fp = fopen($send_image,"r");
+            $size = filesize($send_image);
+            $send_image_data = fread($fp, $size);
 
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
             // $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
             // $params['image'] = $cfile;
-            $params = array('image' => $send_image);
+            $params = array('image' => $send_image_data);
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
