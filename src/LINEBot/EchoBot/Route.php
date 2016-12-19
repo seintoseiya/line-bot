@@ -143,7 +143,7 @@ class Route
             // $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
             // $params['image'] = $cfile;
             // $params = array('image' => '@'.stream_get_meta_data($send_image)[uri]);
-            $params = array('image' => imagepng($send_image, null, 9));
+            $params = array('image' => imagejpeg($send_image));
 
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
