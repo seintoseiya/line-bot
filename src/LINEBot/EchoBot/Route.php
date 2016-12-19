@@ -67,9 +67,9 @@ class Route
                 $response = $bot->getMessageContent($event->getMessageId());
 
                 if ($response->isSucceeded()) {
-                    // $tempfile = tmpfile();
-                    // fwrite($tempfile, $response->getRawBody());
-                    $replyText = nekojudge($response->getRawBody());
+                    $tempfile = tmpfile();
+                    fwrite($tempfile, $response->getRawBody());
+                    $replyText = nekojudge($tempfile,);
                 } else {
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
@@ -186,8 +186,8 @@ class Route
                 'content' => array('image' => $send_image)
             ));
 
-            $res = file_get_contents($url, false, stream_context_create($opts));
-
+            $data = file_get_contents($url, false, stream_context_create($opts));
+            $res = json_decode($data);
             error_log("1:".print_r($res,true));
             error_log("2:".print_r($res[0],true));
             error_log("3:".print_r($res[0][0],true));
