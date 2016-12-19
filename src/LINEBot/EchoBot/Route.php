@@ -144,7 +144,7 @@ class Route
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
             // $cfile = curl_file_create('@./cat_example.jpg','image/jpeg','test_name');
             // $params['image'] = $cfile;
-            $params = array('image' => '@./cat_example');
+            $params = array('image' => '@./cat_example.jpg');
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
