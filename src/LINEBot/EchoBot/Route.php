@@ -69,7 +69,7 @@ class Route
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
                     fwrite($tempfile, $response->getRawBody());
-                    $replyText = nekojudge($tempfile,);
+                    $replyText = nekojudge($tempfile);
                 } else {
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
