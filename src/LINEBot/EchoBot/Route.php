@@ -149,6 +149,7 @@ class Route
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POST, true);
