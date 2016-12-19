@@ -175,7 +175,7 @@ class Route
 
             $url = "http://whatcat.ap.mextractr.net/api_query";
             $header = array( 
-                "Content-Type: multipart/form-data",
+                "Content-Type: application/octet-stream",
                 'Authorization : Basic '.base64_encode('seintoseiya:pegasasu'),//ベーシック認証
             );
 
@@ -183,7 +183,7 @@ class Route
                 'http' => array(
                 'method' => 'POST',
                 'header' => $header,
-                'content' => "image=$send_image",
+                'content' => array('image' => $send_image)
             ));
 
             $res = file_get_contents($url, false, stream_context_create($opts));
