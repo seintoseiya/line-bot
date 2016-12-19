@@ -142,7 +142,7 @@ class Route
 
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $cfile = curl_file_create('@./cat_example.jpg','image/jpeg','image');
+            $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
             $params['image'] = $cfile;
             // $params = array('image' => '@./cat_example.jpg');
 
