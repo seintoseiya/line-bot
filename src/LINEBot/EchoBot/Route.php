@@ -135,30 +135,33 @@ class Route
             
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
-            $api_url = 'http://seintoseiya:pegasasu@whatcat.ap.mextractr.net/api_query';
-            // $params['image'] = "@./cat_example.jpg";
+            $api_url = 'http://whatcat.ap.mextractr.net/api_query';
+            $cfile = curl_file_create('cat_example.jpg','image/jpeg','test_name');
+            $params['image'] = $cfile;
 
-            // $curl = curl_init($api_url);
-            // curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
+            $curl = curl_init($api_url);
+            curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
             // curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
-            // curl_setopt($curl, CURLOPT_POST, true);
-            // curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
+            curl_setopt($curl, CURLOPT_POST, true);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
             // $data = curl_exec($curl);
             // $res = json_decode($data);
             // curl_close($curl);
             // error_log(print_r($data,true));
-            $req_body = array('image' => $send_image);
-            $options = array(
-                'http'=>array(
-                    'method'  => 'POST',
-                    'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
-                    'content' => $req_body
-                    )
-                );
-            $stream = stream_context_create($options);
-            $res = json_decode(file_get_contents($api_url, false, $stream));
+            // $req_body = array('image' => $send_image);
+            // $options = array(
+            //     'http'=>array(
+            //         'method'  => 'POST',
+            //         'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
+            //         'content' => $req_body
+            //         )
+            //     );
+            // $stream = stream_context_create($options);
+            // $res = json_decode(file_get_contents($api_url, false, $stream));
+            // error_log(print_r($res,true));
+            $res = curl_exec($curl);
             error_log(print_r($res,true));
             return $res[0][0];
         }
