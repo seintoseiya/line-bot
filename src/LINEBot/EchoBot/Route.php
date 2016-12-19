@@ -137,6 +137,7 @@ class Route
             // $pass = 'pegasasu';
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
             $cfile = curl_file_create('cat_example.jpg','image/jpeg','test_name');
+            error_log(print_r($cfile,true));
             $params['image'] = $cfile;
 
             $curl = curl_init($api_url);
