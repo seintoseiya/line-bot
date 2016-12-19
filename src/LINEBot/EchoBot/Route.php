@@ -140,9 +140,9 @@ class Route
 
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
-            $params['image'] = $cfile;
-            // $params = array('image' => '@./cat_example.jpg');
+            // $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
+            // $params['image'] = $cfile;
+            $params = array('image' => $send_image);
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
             curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
@@ -189,7 +189,7 @@ class Route
             // $data = file_get_contents($url, false, stream_context_create($opts));
             // $res = json_decode($data);
 
-            
+
             error_log("1:".print_r($res,true));
             error_log("2:".print_r($res[0],true));
             error_log("3:".print_r($res[0][0],true));
