@@ -57,7 +57,7 @@ class Route
             }
             foreach ($events as $event) {
                 error_log("event".print_r($event instanceof ImageMessage,true));
-                if ($event instanceof ImageMessage) {
+                if ($event instanceof ImageMessage || $event instanceof ImageMessage != null) {
                     $response = $bot->getMessageContent($event->getMessageId());
                     if ($response->isSucceeded()) {
                         $tempfile = tmpfile();
@@ -66,7 +66,7 @@ class Route
                         error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                     }
                     $replyText = nekojudge($tempfile);
-                }elseif($event instanceof TextMessage || $event instanceof TextMessage == null){
+                }else{
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                 }
