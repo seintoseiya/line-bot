@@ -72,8 +72,8 @@ class Route
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                 }
-                // $resp = $bot->replyText($event->getReplyToken(), $replyText);
-                $resp = $bot->replyMessage(
+                $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                $resp2 = $bot->replyMessage(
                     $event->getReplyToken(),
                     new TemplateMessageBuilder(
                         'Confirm alt text',
@@ -83,6 +83,7 @@ class Route
                         ])
                     )
                 );
+                break;
                 $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
