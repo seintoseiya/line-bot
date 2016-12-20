@@ -54,7 +54,10 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
+            error_log("events:".$events);
             foreach ($events as $event) {
+                error_log("event:".$event);
+                error_log("$event:".$event);
                 // if (!($event instanceof MessageEvent)) {
                 //     $logger->info('Non message event has come');
                 //     continue;
@@ -69,61 +72,19 @@ class Route
                 if ($response->isSucceeded()) {
                     $tempfile = tmpfile();
                     fwrite($tempfile, $response->getRawBody());
-                    $replyText = nekojudge($tempfile);
                 } else {
                     error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                 }
 
-                // $replyText = $event->getText();
-                // $logger->info('Reply text: ' . $replyText);
+                $replyText = nekojudge($tempfile);
                 $resp = $bot->replyText($event->getReplyToken(), $replyText);
-                // $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
+                $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
             $res->write('OK');
             return $res;
         });
-        /**
-         * Returns text of the message.
-         * parameter: string
-         * @return string
-         */
-        function chat($send_message) {
-            // docomo chatAPI
-            $context_file = dirname(__FILE__).'/.docomoapi.context';
-            $api_key = '32556d78757870766d767466766d2f6c47507552744b42745342386a4242524f356f2f71554a6a35655637';
-            $api_url = sprintf('https://api.apigw.smt.docomo.ne.jp/dialogue/v1/dialogue?APIKEY=%s', $api_key);
-            $req_body = array('utt' => $send_message);
-            if ( file_exists($context_file) ) {
-                $req_body['context'] = file_get_contents($context_file);
-            }
 
-            $headers = array(
-                'Content-Type: application/json; charset=UTF-8',
-            );
-            $options = array(
-                'http'=>array(
-                    'method'  => 'POST',
-                    'header'  => implode("\r\n", $headers),
-                    'content' => json_encode($req_body),
-                    )
-                );
-            $stream = stream_context_create($options);
-            $res = json_decode(file_get_contents($api_url, false, $stream));
-            if (isset($res->context)) {
-                file_put_contents($context_file, $res->context);
-            }
-
-            return $res->utt;
-        }
-        /**
-         * Returns text of the message.
-         * parameter: string
-         * @return string
-         */
-        function nekogo($chat_message) {
-            // 「。」を「にゃ。」に置換
-        }
         /**
          * Returns text of the message.
          * parameter: binary
@@ -131,16 +92,8 @@ class Route
          */
         function nekojudge($send_image) {
             $image_uri = stream_get_meta_data($send_image)[uri];
-            error_log(print_r($metaDatas,true));
-
-            // ネコ
-            
-            // $user = 'seintoseiya';
-            // $pass = 'pegasasu';
-
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            
             $cfile = curl_file_create($image_uri,'image/jpeg','test_name');
             $params = array('image' => $cfile);
 
@@ -150,14 +103,14 @@ class Route
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
-            error_log(print_r($params,true));
+            error_log(print_r("params:"$params,true));
+
             $data = curl_exec($curl);
             $res = json_decode($data);
+            error_log("res[0]:".print_r($res[0],true));
 
-            error_log("1:".print_r($res,true));
-            error_log("2:".print_r($res[0],true));
-            error_log("3:".print_r($res[0][0],true));
-            return $res[0][0];
+            $ans = "おそらく".$res[0][0]."だにゃ。";
+            return $ans;
         }
     }
 }
