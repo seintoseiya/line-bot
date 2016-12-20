@@ -130,7 +130,9 @@ class Route
          * @return string
          */
         function nekojudge($send_image) {
-            error_log(print_r($send_image,true));
+            $image_uri = stream_get_meta_data($tmpHandle)[uri];
+            error_log(print_r($metaDatas,true));
+
             // ネコ
             
             // $user = 'seintoseiya';
@@ -139,7 +141,7 @@ class Route
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
             
-            $cfile = curl_file_create($send_image,'image/jpeg','test_name');
+            $cfile = curl_file_create($image_uri,'image/jpeg','test_name');
             $params = array('image' => $cfile);
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
