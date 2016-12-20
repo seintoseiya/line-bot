@@ -56,7 +56,7 @@ class Route
             }
             foreach ($events as $event) {
                 error_log("event".print_r($event['message'],true));
-                if ($event['message']['type'] != "image") {
+                if ($event['message'] != "image") {
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                     continue;
