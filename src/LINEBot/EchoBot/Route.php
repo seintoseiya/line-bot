@@ -61,7 +61,7 @@ class Route
                 return $res->withStatus(400, "Invalid event request");
             }
             foreach ($events as $event) {
-                if ($event instanceof ImageMessage || $event instanceof ImageMessage != null) {
+                if ($event instanceof ImageMessage) {
                     $response = $bot->getMessageContent($event->getMessageId());
                     if ($response->isSucceeded()) {
                         $tempfile = tmpfile();
@@ -90,7 +90,7 @@ class Route
                 $message = new MultiMessageBuilder();
                 $message->add($text_message);
                 $message->add($confirm_message);
-                $res = $bot->replyMessage($event->getReplyToken(), $message);
+                $resp = $bot->replyMessage($event->getReplyToken(), $message);
 
                 // $resp = $bot->replyText($event->getReplyToken(), $replyText);
                 // $resp2 = $bot->replyMessage(
