@@ -82,7 +82,7 @@ class Route
                         new MessageTemplateActionBuilder('Yes', 'Yes!'),
                         new MessageTemplateActionBuilder('No', 'No!'),
                     ])
-                )
+                );
 
                 $message = new MultiMessageBuilder();
                 $message->add($text_message);
