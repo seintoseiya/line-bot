@@ -22,7 +22,9 @@ use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
 use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder\MultiMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TextMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
@@ -72,18 +74,32 @@ class Route
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                 }
-                $resp = $bot->replyText($event->getReplyToken(), $replyText);
-                $resp2 = $bot->replyMessage(
-                    $event->getReplyToken(),
-                    new TemplateMessageBuilder(
+
+                $text_message = new TextMessageBuilder($replyText);
+                $confirm_message = new TemplateMessageBuilder(
                         'Confirm alt text',
                         new ConfirmTemplateBuilder('Do it?', [
-                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
-                            new MessageTemplateActionBuilder('No', 'No!'),
-                        ])
-                    )
-                );
-                break;
+                        new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                        new MessageTemplateActionBuilder('No', 'No!'),
+                    ])
+                )
+
+                $message = new MultiMessageBuilder();
+                $message->add($text_message);
+                $message->add($confirm_message);
+                $res = $bot->replyMessage($event->getReplyToken(), $message);
+
+                // $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                // $resp2 = $bot->replyMessage(
+                //     $event->getReplyToken(),
+                //     new TemplateMessageBuilder(
+                //         'Confirm alt text',
+                //         new ConfirmTemplateBuilder('Do it?', [
+                //             new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                //             new MessageTemplateActionBuilder('No', 'No!'),
+                //         ])
+                //     )
+                // );
                 $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
