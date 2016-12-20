@@ -21,6 +21,8 @@ namespace LINE\LINEBot\EchoBot;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
+use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
+use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\Event\MessageEvent\ImageMessage;
 use LINE\LINEBot\Event\MessageEvent\TextMessage;
 use LINE\LINEBot\Exception\InvalidEventRequestException;
@@ -71,6 +73,16 @@ class Route
                     $replyText = "猫の画像を送信してね。";
                 }
                 $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                $resp = $bot->replyMessage(
+                    $replyToken,
+                    new TemplateMessageBuilder(
+                        'Confirm alt text',
+                        new ConfirmTemplateBuilder('Do it?', [
+                            new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                            new MessageTemplateActionBuilder('No', 'No!'),
+                        ])
+                    )
+                );
                 $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
 
