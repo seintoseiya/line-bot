@@ -130,7 +130,7 @@ class Route
          * @return string
          */
         function nekojudge($send_image) {
-            $image_uri = stream_get_meta_data($tmpHandle)[uri];
+            $image_uri = stream_get_meta_data($send_image)[uri];
             error_log(print_r($metaDatas,true));
 
             // ネコ
