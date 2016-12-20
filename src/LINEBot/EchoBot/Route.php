@@ -57,7 +57,7 @@ class Route
             foreach ($events as $event) {
                 if (!($event instanceof ImageMessage)) {
                     $logger->info('Non message event has come');
-                    $replyText = "猫の画像を送信してね。"
+                    $replyText = "猫の画像を送信してね。";
                     continue;
                 }else{
                     $response = $bot->getMessageContent($event->getMessageId());
