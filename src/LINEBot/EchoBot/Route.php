@@ -54,10 +54,10 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
-            error_log("events:".$events);
+            error_log("events:".print_r($events,true));
             foreach ($events as $event) {
-                error_log("event:".$event);
-                error_log("$event:".$event);
+                error_log("event:".print_r($event,true));
+                error_log("$event:".print_r($event,true));
                 // if (!($event instanceof MessageEvent)) {
                 //     $logger->info('Non message event has come');
                 //     continue;
@@ -103,7 +103,7 @@ class Route
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
-            error_log(print_r("params:".$params,true));
+            error_log("params:".print_r($params,true));
 
             $data = curl_exec($curl);
             $res = json_decode($data);
