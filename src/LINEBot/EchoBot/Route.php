@@ -54,29 +54,21 @@ class Route
             } catch (InvalidEventRequestException $e) {
                 return $res->withStatus(400, "Invalid event request");
             }
-            error_log("events:".print_r($events,true));
             foreach ($events as $event) {
-                error_log("event:".print_r($event,true));
-                error_log("$event:".print_r($event,true));
-                // if (!($event instanceof MessageEvent)) {
-                //     $logger->info('Non message event has come');
-                //     continue;
-                // }
-
-                // if (!($event instanceof TextMessage)) {
-                //     $logger->info('Non text message has come');
-                //     continue;
-                // }
-                $response = $bot->getMessageContent($event->getMessageId());
-
-                if ($response->isSucceeded()) {
-                    $tempfile = tmpfile();
-                    fwrite($tempfile, $response->getRawBody());
-                } else {
-                    error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+                if (!($event instanceof ImageMessage)) {
+                    $logger->info('Non message event has come');
+                    $replyText = "猫の画像を送信してね。"
+                    continue;
+                }else{
+                    $response = $bot->getMessageContent($event->getMessageId());
+                    if ($response->isSucceeded()) {
+                        $tempfile = tmpfile();
+                        fwrite($tempfile, $response->getRawBody());
+                    } else {
+                        error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
+                    }
+                    $replyText = nekojudge($tempfile);
                 }
-
-                $replyText = nekojudge($tempfile);
                 $resp = $bot->replyText($event->getReplyToken(), $replyText);
                 $logger->info($resp->getHTTPStatus() . ': ' . $resp->getRawBody());
             }
