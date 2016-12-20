@@ -71,6 +71,8 @@ class Route
                     }
                     $replyText = nekojudge($tempfile);
                 }elseif ($event instanceof PostbackEvent) {
+                    $res->write('OK');
+                    return $res;
                 }else{
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
