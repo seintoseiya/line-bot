@@ -74,7 +74,7 @@ class Route
                 }
                 $resp = $bot->replyText($event->getReplyToken(), $replyText);
                 $resp = $bot->replyMessage(
-                    $replyToken,
+                    $event->getReplyToken(),
                     new TemplateMessageBuilder(
                         'Confirm alt text',
                         new ConfirmTemplateBuilder('Do it?', [
