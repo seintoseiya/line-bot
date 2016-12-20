@@ -55,8 +55,8 @@ class Route
                 return $res->withStatus(400, "Invalid event request");
             }
             foreach ($events as $event) {
-                error_log("event".print_r($event->{"message"}->{"type"},true));
-                if ($event->{"message"}->{"type"} != "image") {
+                error_log("event".print_r($event[0],true));
+                if ($event[0]->{"type"} != "image") {
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                     continue;
