@@ -135,62 +135,22 @@ class Route
             
             // $user = 'seintoseiya';
             // $pass = 'pegasasu';
-            
-            // $params['image'] = $cfile;
 
             $curl = curl_init();
             $api_url = 'http://whatcat.ap.mextractr.net/api_query';
-            // $cfile = curl_file_create('./cat_example.jpg','image/jpeg','image');
-            // $params['image'] = $cfile;
-            // $params = array('image' => '@'.stream_get_meta_data($send_image)[uri]);
-            $params = array('image' => imagejpeg($send_image));
-
+            
+            $cfile = new CURLFile($send_image,'image/jpeg','test_name');
+            $params = array('image' => $cfile);
 
             curl_setopt($curl, CURLOPT_URL, $api_url);
-            curl_setopt($curl, CURLOPT_USERPWD, "seintoseiya:pegasasu");
+            curl_setopt($curl, CURLOPT_USERPWD, "hoge:hoge");
             curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
-            // curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            // curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, false);
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
             error_log(print_r($params,true));
-            // $data = curl_exec($curl);
-            // $res = json_decode($data);
-            // curl_close($curl);
-            // error_log(print_r($data,true));
-            // $req_body = array('image' => $send_image);
-            // $options = array(
-            //     'http'=>array(
-            //         'method'  => 'POST',
-            //         'header'  => 'Content-Type: application/octet-stream; charset=UTF-8',
-            //         'content' => $req_body
-            //         )
-            //     );
-            // $stream = stream_context_create($options);
-            // $res = json_decode(file_get_contents($api_url, false, $stream));
-            // error_log(print_r($res,true));
             $data = curl_exec($curl);
-            error_log("0:".print_r($data,true));
             $res = json_decode($data);
-
-
-            // $url = "http://whatcat.ap.mextractr.net/api_query";
-            // $header = array( 
-            //     "Content-Type: application/octet-stream",
-            //     'Authorization : Basic '.base64_encode('seintoseiya:pegasasu'),//ベーシック認証
-            // );
-
-            // $opts = array(
-            //     'http' => array(
-            //     'method' => 'POST',
-            //     'header' => $header,
-            //     'content' => array('image' => $send_image)
-            // ));
-
-            // $data = file_get_contents($url, false, stream_context_create($opts));
-            // $res = json_decode($data);
-
 
             error_log("1:".print_r($res,true));
             error_log("2:".print_r($res[0],true));
