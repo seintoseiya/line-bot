@@ -103,7 +103,7 @@ class Route
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: multipart/form-data'));
             curl_setopt($curl, CURLOPT_POST, true);
             curl_setopt($curl, CURLOPT_POSTFIELDS, $params );
-            error_log(print_r("params:"$params,true));
+            error_log(print_r("params:".$params,true));
 
             $data = curl_exec($curl);
             $res = json_decode($data);
