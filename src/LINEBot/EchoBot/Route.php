@@ -66,7 +66,7 @@ class Route
                         error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                     }
                     $replyText = nekojudge($tempfile);
-                }elseif($event instanceof TextMessage){
+                }elseif($event instanceof TextMessage || $event instanceof TextMessage == null){
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                 }
