@@ -70,6 +70,7 @@ class Route
                         error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                     }
                     $replyText = nekojudge($tempfile);
+                }elseif ($event instanceof PostbackEvent) {
                 }else{
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
