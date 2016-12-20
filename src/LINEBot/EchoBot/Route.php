@@ -60,6 +60,7 @@ class Route
                 if (($event instanceof TextMessage)) {
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
+                    continue;
                 }else{
                     $response = $bot->getMessageContent($event->getMessageId());
                     if ($response->isSucceeded()) {
