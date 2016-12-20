@@ -21,6 +21,7 @@ namespace LINE\LINEBot\EchoBot;
 use LINE\LINEBot;
 use LINE\LINEBot\Constant\HTTPHeader;
 use LINE\LINEBot\Event\MessageEvent;
+use LINE\LINEBot\TemplateActionBuilder\MessageTemplateActionBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateMessageBuilder;
 use LINE\LINEBot\MessageBuilder\TemplateBuilder\ConfirmTemplateBuilder;
 use LINE\LINEBot\Event\MessageEvent\ImageMessage;
@@ -58,7 +59,6 @@ class Route
                 return $res->withStatus(400, "Invalid event request");
             }
             foreach ($events as $event) {
-                error_log("event".print_r($event instanceof ImageMessage,true));
                 if ($event instanceof ImageMessage || $event instanceof ImageMessage != null) {
                     $response = $bot->getMessageContent($event->getMessageId());
                     if ($response->isSucceeded()) {
