@@ -70,29 +70,29 @@ class Route
                         error_log($response->getHTTPStatus() . ' ' . $response->getRawBody());
                     }
                     $replyText = nekojudge($tempfile);
-                }elseif ($event instanceof PostbackEvent) {
-                    $res->write('OK');
-                    return $res;
+                // }elseif ($event instanceof PostbackEvent) {
+                //     $res->write('OK');
+                //     return $res;
                 }else{
                     $logger->info('Non message event has come');
                     $replyText = "猫の画像を送信してね。";
                 }
 
-                $text_message = new TextMessageBuilder($replyText);
-                $confirm_message = new TemplateMessageBuilder(
-                        'Confirm alt text',
-                        new ConfirmTemplateBuilder('Do it?', [
-                        new MessageTemplateActionBuilder('Yes', 'Yes!'),
-                        new MessageTemplateActionBuilder('No', 'No!'),
-                    ])
-                );
+                // $text_message = new TextMessageBuilder($replyText);
+                // $confirm_message = new TemplateMessageBuilder(
+                //         'Confirm alt text',
+                //         new ConfirmTemplateBuilder('Do it?', [
+                //         new MessageTemplateActionBuilder('Yes', 'Yes!'),
+                //         new MessageTemplateActionBuilder('No', 'No!'),
+                //     ])
+                // );
 
-                $message = new MultiMessageBuilder();
-                $message->add($text_message);
-                $message->add($confirm_message);
-                $resp = $bot->replyMessage($event->getReplyToken(), $message);
+                // $message = new MultiMessageBuilder();
+                // $message->add($text_message);
+                // $message->add($confirm_message);
+                // $resp = $bot->replyMessage($event->getReplyToken(), $message);
 
-                // $resp = $bot->replyText($event->getReplyToken(), $replyText);
+                $resp = $bot->replyText($event->getReplyToken(), $replyText);
                 // $resp2 = $bot->replyMessage(
                 //     $event->getReplyToken(),
                 //     new TemplateMessageBuilder(
